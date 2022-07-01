@@ -1,4 +1,4 @@
-VERSION := `poetry run python -c "import sys; from simple_doc_style_fixer import __version__ as version; sys.stdout.write(version)"`
+VERSION := `poetry run python -c "import sys; from docufix import __version__ as version; sys.stdout.write(version)"`
 
 test:
   poetry run pytest --workers auto
@@ -12,7 +12,7 @@ build:
   poetry build
 
 publish:
-  touch simple_doc_style_fixer/py.typed
+  touch docufix/py.typed
   poetry publish --build
   git tag "v{{VERSION}}"
   git push --tags

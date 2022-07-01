@@ -1,4 +1,4 @@
-from simple_doc_style_fixer import __version__
+from docufix import __version__
 
 
 def test_version():

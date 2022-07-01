@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "simple-rst-style-fixer"
+name = "docufix"
 version = "0.1.0"
 description = ""
 authors = ["SigureMo <sigure.qaq@gmail.com>"]
@@ -12,6 +12,9 @@ pytest = "^7.0"
 black = "^22.1"
 pytest-parallel = "^0.1.1"
 isort = "^5.10.1"
+
+[tool.poetry.scripts]
+docufix = "docufix.__main__:main"
 
 [tool.black]
 line-length = 120
