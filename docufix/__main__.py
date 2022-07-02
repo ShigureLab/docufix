@@ -1,12 +1,13 @@
 import argparse
 import glob
 
-from .rules import InsertWhitespaceBetweenCnAndEnCharRule
+from .rules import InsertWhitespaceBetweenCnAndEnCharRule, TrimTrailingWhitespace
 
 
 def main() -> None:
     rule_clss = [
         InsertWhitespaceBetweenCnAndEnCharRule,
+        TrimTrailingWhitespace,
     ]
 
     parser = argparse.ArgumentParser()
@@ -46,7 +47,8 @@ def main() -> None:
                     if (lint_result := rule.lint_line(line)) is not None:
                         highlight_string, colno = lint_result
                         print(f"{rule.colored_rule_name}\t{path}:{lineno}:{colno}\t\t{highlight_string}")
-                    formatted_text += rule.format_line(line)
+                    line = rule.format_line(line)
+                formatted_text += line
 
         # File rules.
         for rule in file_rules:

@@ -15,6 +15,7 @@ class BaseRule:
     rule_name: str = "BaseRule"
     rule_type: set[str] = {"line", "file"}
     hint_color: Color = CYAN
+    hint_max_len = 40
 
     enable: bool
     options: dict[str, Any]

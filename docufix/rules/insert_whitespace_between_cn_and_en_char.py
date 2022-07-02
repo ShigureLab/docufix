@@ -67,7 +67,7 @@ class InsertWhitespaceBetweenCnAndEnCharRule(BaseRule):
             return None
 
         start = max(0, min_start - 10)
-        end = min(len(line), max_end + 10, start + 40)
+        end = min(len(line), max_end + 10, start + self.hint_max_len)
 
         line = line.rstrip("\n")
         line = line[start:end]

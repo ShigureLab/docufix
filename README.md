@@ -10,8 +10,10 @@ pip install docufix
 
 ## Rules
 
--  中英文间插入空格（对 AST 有改动
+-  中英文间插入空格（对 AST 有改动）
    -  rule name: `--insert-whitespace-between-cn-and-en-char`
+-  删除行末空格
+   -  rule name: `--trim-trailing-whitespace`
 
 ## Usage
 
@@ -30,6 +32,7 @@ Example:
 ```bash
 docufix '**/*.md' \
    --insert-whitespace-between-cn-and-en-char \
+   --trim-trailing-whitespace \
    --fix
 ```
 
