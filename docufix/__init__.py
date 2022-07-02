@@ -10,8 +10,8 @@ __project_info__ = {
 }
 
 # The exported modules.
-from ._abc import Formatter
+from .rules._abc import BaseRule
 
 __all__ = [
-    "Formatter",
+    "BaseRule",
 ]

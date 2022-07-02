@@ -9,8 +9,8 @@ fmt:
   poetry run black .
 
 fmt-docs:
-  poetry run docufix '**/*.md'
-  poetry run docufix '**/*.rst'
+  poetry run docufix '**/*.md' --fix
+  poetry run docufix '**/*.rst' --fix
 
 build:
   poetry build
