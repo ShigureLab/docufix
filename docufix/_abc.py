@@ -42,10 +42,7 @@ class Formatter:
             x = paddle.to_tensor(input_data)
     """
 
-    attr1: int
-    attr2: str
-
-    def __init__(self, options: dict[str, Any], others: Any):
+    def __init__(self, options: dict[str, Any]):
         self.options = options
 
     def format_line(self) -> str:
