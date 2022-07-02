@@ -139,3 +139,6 @@ log
 
 # test files
 __test_files__
+
+# generated api docs
+docs/api/en
