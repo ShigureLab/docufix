@@ -2,6 +2,10 @@
 
 A simple doc style fixer.
 
+## features
+
+-  [x] 中英文间插入空格（对 AST 有改动）
+
 ## Paddle 文档修缮工程
 
 -  Stage 1: 编写简易脚本工具来全量替换（本阶段）

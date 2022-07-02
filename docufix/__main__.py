@@ -1,7 +1,6 @@
+import argparse
 import glob
 import re
-import argparse
-
 from typing import Optional
 
 CSI = "\x1b["

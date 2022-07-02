@@ -8,6 +8,10 @@ fmt:
   poetry run isort .
   poetry run black .
 
+fmt-docs:
+  poetry run docufix '**/*.md'
+  poetry run docufix '**/*.rst'
+
 build:
   poetry build
 

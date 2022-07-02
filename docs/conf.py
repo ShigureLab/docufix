@@ -17,28 +17,17 @@ extensions = [
     "sphinx.ext.napoleon",
 ]
 
-from config.autodoc import (
-    autodoc_member_order as autodoc_member_order,
-)
-
-from config.napoleon import (
-    napoleon_custom_sections as napoleon_custom_sections,
-    napoleon_attr_annotations as napoleon_attr_annotations,
-)
-
-from config.i18n import (
-    locale_dirs as locale_dirs,
-    gettext_compact as gettext_compact,
-)
-
-from config.basic import (
-    project as project,
-    copyright as copyright,
-    author as author,
-    release as release,
-    templates_path as templates_path,
-    language as language,
-    exclude_patterns as exclude_patterns,
-    html_theme as html_theme,
-    html_static_path as html_static_path,
-)
+from config.autodoc import autodoc_member_order as autodoc_member_order
+from config.basic import author as author
+from config.basic import copyright as copyright
+from config.basic import exclude_patterns as exclude_patterns
+from config.basic import html_static_path as html_static_path
+from config.basic import html_theme as html_theme
+from config.basic import language as language
+from config.basic import project as project
+from config.basic import release as release
+from config.basic import templates_path as templates_path
+from config.i18n import gettext_compact as gettext_compact
+from config.i18n import locale_dirs as locale_dirs
+from config.napoleon import napoleon_attr_annotations as napoleon_attr_annotations
+from config.napoleon import napoleon_custom_sections as napoleon_custom_sections
