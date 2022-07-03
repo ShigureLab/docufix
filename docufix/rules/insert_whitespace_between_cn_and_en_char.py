@@ -69,7 +69,6 @@ class InsertWhitespaceBetweenCnAndEnCharRule(BaseRule):
         start = max(0, min_start - 10)
         end = min(len(line), max_end + 10, start + self.hint_max_len)
 
-        line = line.rstrip("\n")
         line = line[start:end]
         line = REGEX_EN_WITH_CN.sub(rf"{self.hint_color}\g<en>\g<cn>{RST}", line)
         line = REGEX_CN_WITH_EN.sub(rf"{self.hint_color}\g<cn>\g<en>{RST}", line)

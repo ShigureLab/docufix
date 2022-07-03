@@ -38,16 +38,10 @@ class TrimTrailingWhitespace(BaseRule):
         }
 
     def format_line(self, line: str) -> str:
-        with_newline = line.endswith("\n")
-        if with_newline:
-            line.rstrip("\n")
         line = REGEX_TRILING_WHITESPACE.sub("", line)
-        if with_newline:
-            line += "\n"
         return line
 
     def lint_line(self, line: str) -> Optional[tuple[str, int]]:
-        line = line.rstrip("\n")
         if mth := REGEX_TRILING_WHITESPACE.search(line):
             self.count += 1
             start, end = mth.span()

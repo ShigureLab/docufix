@@ -2,6 +2,7 @@ import argparse
 import glob
 
 from .rules import InsertWhitespaceBetweenCnAndEnCharRule, TrimTrailingWhitespace
+from .utils.line_trimer import LineTrimer
 
 
 def main() -> None:
@@ -41,13 +42,18 @@ def main() -> None:
         formatted_text = ""
 
         with open(path, "r", encoding="utf-8", newline="\n") as f:
-            # Line rules.
+
             for lineno, line in enumerate(f, 1):
+                trimer, line = LineTrimer.create(line)
+
+                # Line rules.
                 for rule in line_rules:
                     if (lint_result := rule.lint_line(line)) is not None:
                         highlight_string, colno = lint_result
                         print(f"{rule.colored_rule_name}\t{path}:{lineno}:{colno}\t\t{highlight_string}")
                     line = rule.format_line(line)
+
+                line = trimer.restore(line)
                 formatted_text += line
 
         # File rules.
