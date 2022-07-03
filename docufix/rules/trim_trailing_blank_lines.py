@@ -53,7 +53,6 @@ class TrimTrailingBlankLinesRule(Rule):
 
     def lint_file(self, file: File) -> Optional[str]:
         if file.lines and file.lines[-1].newline_only:
-            print(file.lines[-1].newline_only)
             self.count += 1
             return "The file has a repeated final newline."
         return None
