@@ -7,6 +7,7 @@ from docufix.rules.insert_whitespace_between_cn_and_en_char import (
     REGEX_EN_CHAR_STR,
     REGEX_EN_WITH_CN,
     InsertWhitespaceBetweenCnAndEnCharRule,
+    format,
 )
 
 
@@ -60,8 +61,6 @@ def test_rule_enable():
 
 
 def test_long_text():
-    rule = _create_rule(["--insert-whitespace-between-cn-and-en-char"])
-
     long_text_unformatted = """
     这是一段长文本，会混杂一些英文
     啦啦啦，char喵喵喵en啊啦啦啦。xxxx
@@ -72,4 +71,4 @@ def test_long_text():
     啦啦啦，char 喵喵喵 en 啊啦啦啦。xxxx
     en，char。
     """
-    assert rule.format_line(long_text_unformatted) == long_text_formatted
+    assert format(long_text_unformatted) == long_text_formatted

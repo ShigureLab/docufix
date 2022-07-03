@@ -1,8 +1,8 @@
 import argparse
 import glob
 
+from .core import File, Rule
 from .rules import InsertWhitespaceBetweenCnAndEnCharRule, TrimTrailingWhitespace
-from .utils.line_trimer import LineTrimer
 
 
 def main() -> None:
@@ -18,7 +18,7 @@ def main() -> None:
         rule_cls.extend_cli(parser)
     args = parser.parse_args()
 
-    rules = [rule_cls(args) for rule_cls in rule_clss]
+    rules: list[Rule] = [rule_cls(args) for rule_cls in rule_clss]
     rules = [rule for rule in rules if rule.enable]
 
     # Show the enabled rules.
@@ -31,40 +31,16 @@ def main() -> None:
         print("No rules enabled.")
         return
 
-    line_rules = [rule for rule in rules if "line" in rule.rule_type]
-    file_rules = [rule for rule in rules if "file" in rule.rule_type]
-
     path_list = glob.glob(args.glob, recursive=True)
     total = len(path_list)
     for i, path in enumerate(path_list, 1):
         print(f"Processing {i}/{total}", end="\r")
 
-        formatted_text = ""
-
-        with open(path, "r", encoding="utf-8", newline="\n") as f:
-
-            for lineno, line in enumerate(f, 1):
-                trimer, line = LineTrimer.create(line)
-
-                # Line rules.
-                for rule in line_rules:
-                    if (lint_result := rule.lint_line(line)) is not None:
-                        highlight_string, colno = lint_result
-                        print(f"{rule.colored_rule_name}\t{path}:{lineno}:{colno}\t\t{highlight_string}")
-                    line = rule.format_line(line)
-
-                line = trimer.restore(line)
-                formatted_text += line
-
-        # File rules.
-        for rule in file_rules:
-            if rule.lint_file(formatted_text):
-                print(f"{rule.colored_rule_name}\t{path}")
-            formatted_text = rule.format_file(formatted_text)
+        file = File(path)
+        file.apply_rules(rules)
 
         if args.fix:
-            with open(path, "w", encoding="utf-8", newline="\n") as f:
-                f.write(formatted_text)
+            file.write_back()
 
     print()
 

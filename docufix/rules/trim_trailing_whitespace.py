@@ -4,13 +4,13 @@ import argparse
 import re
 from typing import Any, Optional
 
-from ..utils.colorful import RST, Color, BACK_MAGENTA, MAGENTA
-from ._abc import BaseRule
+from ..core import Line, Rule
+from ..utils.colorful import BACK_MAGENTA, MAGENTA, RST, Color
 
 REGEX_TRILING_WHITESPACE = re.compile(r"(?P<spaces>\s+)$")
 
 
-class TrimTrailingWhitespace(BaseRule):
+class TrimTrailingWhitespace(Rule):
     """
     The rule to insert a whitespece between Chinese and English characters.
     """
@@ -37,20 +37,25 @@ class TrimTrailingWhitespace(BaseRule):
             "enable": cli.trim_trailing_whitespace,
         }
 
-    def format_line(self, line: str) -> str:
-        line = REGEX_TRILING_WHITESPACE.sub("", line)
-        return line
+    def format_line(self, line: Line) -> None:
+        line.text = format(line.text)
 
-    def lint_line(self, line: str) -> Optional[tuple[str, int]]:
-        if mth := REGEX_TRILING_WHITESPACE.search(line):
+    def lint_line(self, line: Line) -> Optional[tuple[str, int]]:
+        text = line.text
+        if mth := REGEX_TRILING_WHITESPACE.search(text):
             self.count += 1
             start, end = mth.span()
         else:
             return None
 
         start = max(0, start - 10)
-        end = min(len(line), end + 10, start + self.hint_max_len)
+        end = min(len(text), end + 10, start + self.hint_max_len)
 
-        line = line[start:end]
-        line = REGEX_TRILING_WHITESPACE.sub(rf"{BACK_MAGENTA}\g<spaces>{RST}", line)
-        return line, start
+        text = text[start:end]
+        text = REGEX_TRILING_WHITESPACE.sub(rf"{BACK_MAGENTA}\g<spaces>{RST}", text)
+        return text, start
+
+
+def format(text: str) -> str:
+    text = REGEX_TRILING_WHITESPACE.sub("", text)
+    return text

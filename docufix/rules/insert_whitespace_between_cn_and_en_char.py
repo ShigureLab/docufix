@@ -4,8 +4,8 @@ import argparse
 import re
 from typing import Any, Optional
 
+from ..core import Line, Rule
 from ..utils.colorful import BLUE, RST, Color
-from ._abc import BaseRule
 
 REGEX_CN_CHAR_STR = r"[\u4e00-\u9fa5]"
 REGEX_EN_CHAR_STR = r"[a-zA-Z0-9]"
@@ -14,7 +14,7 @@ REGEX_CN_WITH_EN = re.compile(f"(?P<cn>{REGEX_CN_CHAR_STR})(?P<en>{REGEX_EN_CHAR
 REGEX_EN_WITH_CN = re.compile(f"(?P<en>{REGEX_EN_CHAR_STR})(?P<cn>{REGEX_CN_CHAR_STR})")
 
 
-class InsertWhitespaceBetweenCnAndEnCharRule(BaseRule):
+class InsertWhitespaceBetweenCnAndEnCharRule(Rule):
     """
     The rule to insert a whitespece between Chinese and English characters.
     """
@@ -41,22 +41,21 @@ class InsertWhitespaceBetweenCnAndEnCharRule(BaseRule):
             "enable": cli.insert_whitespace_between_cn_and_en_char,
         }
 
-    def format_line(self, line: str) -> str:
-        line = REGEX_CN_WITH_EN.sub(r"\g<cn> \g<en>", line)
-        line = REGEX_EN_WITH_CN.sub(r"\g<en> \g<cn>", line)
-        return line
+    def format_line(self, line: Line):
+        line.text = format(line.text)
 
-    def lint_line(self, line: str) -> Optional[tuple[str, int]]:
+    def lint_line(self, line: Line) -> Optional[tuple[str, int]]:
+        text = line.text
         min_start = 999999
         max_end = -1
         found = False
-        for mth in REGEX_CN_WITH_EN.finditer(line):
+        for mth in REGEX_CN_WITH_EN.finditer(text):
             self.count += 1
             found = True
             start, end = mth.span()
             min_start = min(min_start, start)
             max_end = max(max_end, end)
-        for mth in REGEX_EN_WITH_CN.finditer(line):
+        for mth in REGEX_EN_WITH_CN.finditer(text):
             self.count += 1
             found = True
             start, end = mth.span()
@@ -67,9 +66,15 @@ class InsertWhitespaceBetweenCnAndEnCharRule(BaseRule):
             return None
 
         start = max(0, min_start - 10)
-        end = min(len(line), max_end + 10, start + self.hint_max_len)
+        end = min(len(text), max_end + 10, start + self.hint_max_len)
 
-        line = line[start:end]
-        line = REGEX_EN_WITH_CN.sub(rf"{self.hint_color}\g<en>\g<cn>{RST}", line)
-        line = REGEX_CN_WITH_EN.sub(rf"{self.hint_color}\g<cn>\g<en>{RST}", line)
-        return line, min_start
+        text = text[start:end]
+        text = REGEX_EN_WITH_CN.sub(rf"{self.hint_color}\g<en>\g<cn>{RST}", text)
+        text = REGEX_CN_WITH_EN.sub(rf"{self.hint_color}\g<cn>\g<en>{RST}", text)
+        return text, min_start
+
+
+def format(text: str) -> str:
+    text = REGEX_CN_WITH_EN.sub(r"\g<cn> \g<en>", text)
+    text = REGEX_EN_WITH_CN.sub(r"\g<en> \g<cn>", text)
+    return text

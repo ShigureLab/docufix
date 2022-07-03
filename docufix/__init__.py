@@ -10,8 +10,10 @@ __project_info__ = {
 }
 
 # The exported modules.
-from .rules._abc import BaseRule
+from .core import File, Line, Rule
 
 __all__ = [
-    "BaseRule",
+    "Line",
+    "File",
+    "Rule",
 ]
