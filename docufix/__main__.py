@@ -6,6 +6,7 @@ from .rules import (
     InsertWhitespaceBetweenCnAndEnCharRule,
     TrimTrailingWhitespace,
     UnifyNewlineRule,
+    EnsureFinalNewlineRule,
 )
 
 
@@ -14,6 +15,7 @@ def main() -> None:
         InsertWhitespaceBetweenCnAndEnCharRule,
         TrimTrailingWhitespace,
         UnifyNewlineRule,
+        EnsureFinalNewlineRule,
     ]
 
     parser = argparse.ArgumentParser()
@@ -39,13 +41,15 @@ def main() -> None:
     path_list = glob.glob(args.glob, recursive=True)
     total = len(path_list)
     for i, path in enumerate(path_list, 1):
-        print(f"Processing {i}/{total}", end="\r")
+        print(f"Processing {i}/{total}\t{path}  ", end="\r")
 
         file = File(path)
         file.apply_rules(rules)
 
-        for line in file.lines:
-            print(f"<{repr(line.text)}><{repr(line.newline)}>")
+        # For debug
+        # print(file.filepath)
+        # for line in file.lines:
+        #     print(f"<{repr(line.text)}><{repr(line.newline)}>")
 
         if args.fix:
             file.write_back()

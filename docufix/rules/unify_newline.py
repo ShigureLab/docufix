@@ -52,7 +52,9 @@ class UnifyNewlineRule(Rule):
     def lint_file(self, file: File) -> Optional[str]:
         for line in file.lines:
             if self.newline == Newline.LF and line.newline == Newline.CRLF:
+                self.count += 1
                 return "Expected LF newline, but found CRLF"
             elif self.newline == Newline.CRLF and line.newline == Newline.LF:
+                self.count += 1
                 return "Expected CRLF newline, but found LF"
         return None

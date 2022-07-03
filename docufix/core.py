@@ -115,22 +115,28 @@ class Line:
         self.file = file
 
         self.text, self.newline = self._process_origin_text(self.origin_text)
+        self._check_line()
 
     def _process_origin_text(self, origin_text: str) -> tuple[str, Optional[Newline]]:
 
-        if origin_text.endswith(Newline.CR.value):
+        if origin_text.endswith(Newline.CRLF.value):
+            newline = Newline.CRLF
+        elif origin_text.endswith(Newline.CR.value):
             newline = Newline.CR
         elif origin_text.endswith(Newline.LF.value):
             newline = Newline.LF
-        elif origin_text.endswith(Newline.CRLF.value):
-            newline = Newline.CRLF
         else:
             newline = None
 
         text = origin_text
         if newline is not None:
             text = origin_text.rstrip(newline.value)
+
         return text, newline
+
+    def _check_line(self) -> None:
+        assert not self.text.endswith(tuple(Newline.values())), "The trimed text should not end with newline."
+        assert self.text or self.newline, "The line should not be empty."
 
     def change_newline(self, newline: Newline) -> None:
         if self.newline is not None:
@@ -143,6 +149,14 @@ class Line:
                     highlight_string, colno = lint_result
                     print(f"{rule.colored_rule_name}\t{self.file.filepath}:{self.lineno}:{colno}\t\t{highlight_string}")
                 rule.format_line(self)
+
+    @property
+    def text_only(self) -> bool:
+        return self.newline is None
+
+    @property
+    def newline_only(self) -> bool:
+        return self.text != ""
 
     def __str__(self) -> str:
         if self.newline is not None:

@@ -18,8 +18,10 @@ pip install docufix
    -  rule name: `--unify-newline`
    -  rule options:
       -  `--unify-newline-type`
-         -  Type: `Literal["lf", "crlf"]`
-         -  Default: `lf`
+         -  Type: `Literal["CR", "LF", "CRLF"]`
+         -  Default: `LF`
+-  确保文件末尾有换行符
+   -  rule name: `--ensure-final-newline`
 
 ## Usage
 
@@ -40,7 +42,8 @@ docufix '**/*.md' \
    --insert-whitespace-between-cn-and-en-char \
    --trim-trailing-whitespace \
    --unify-newline \
-   --unify-newline-type lf \
+   --unify-newline-type LF \
+   --ensure-final-newline \
    --fix
 ```
 
