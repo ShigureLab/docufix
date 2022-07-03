@@ -34,7 +34,8 @@ pip install docufix
 ## Usage
 
 ```bash
-docufix path-glob \
+docufix path-glob1 path-glob2 path-glob3 \
+   --ignore-globs='ignore-glob1,ignore-glob2' \
    --rule1-name \
    --rule1-option1 \
    --rule1-option2 \
@@ -46,7 +47,8 @@ docufix path-glob \
 Example:
 
 ```bash
-docufix '**/*.md' \
+docufix '**/*.md' '**/*.rst' \
+   --ignore-globs='**/README.md,**/index.rst' \
    --insert-whitespace-between-cn-and-en-char \
    --trim-trailing-whitespace \
    --unify-newline \

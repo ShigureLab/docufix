@@ -12,6 +12,15 @@ from .rules import (
 )
 
 
+def resolve_globs(globs: list[str], ignore_globs: list[str]) -> list[str]:
+    ignore_paths_list = [glob.glob(ignore_glob, recursive=True) for ignore_glob in ignore_globs]
+    ignore_paths = [path for ignore_paths in ignore_paths_list for path in ignore_paths]
+
+    paths_list = [glob.glob(glob_, recursive=True) for glob_ in globs]
+    paths = [path for paths in paths_list for path in paths if path not in ignore_paths]
+    return paths
+
+
 def main() -> None:
     rule_clss = [
         InsertWhitespaceBetweenCnAndEnCharRule,
@@ -23,8 +32,9 @@ def main() -> None:
     ]
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("glob", help="Path glob to check")
+    parser.add_argument("globs", help="Path glob to check", nargs="+")
     parser.add_argument("--fix", help="Auto fix the wrongs", action="store_true")
+    parser.add_argument("--ignore-globs", help="Path glob to ignore, comma separated", type=str, default="")
     for rule_cls in rule_clss:
         rule_cls.extend_cli(parser)
     args = parser.parse_args()
@@ -42,7 +52,7 @@ def main() -> None:
         print("No rules enabled.")
         return
 
-    path_list = glob.glob(args.glob, recursive=True)
+    path_list = resolve_globs(args.globs, args.ignore_globs.split(","))
     total = len(path_list)
     for i, path in enumerate(path_list, 1):
         print(f"Processing {i}/{total}\t{path}  ", end="\r")
