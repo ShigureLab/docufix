@@ -26,7 +26,7 @@ pip install docufix
    -  rule name: `--trim-trailing-blank-lines`
 -  使用空格代替 TAB
    -  rule name: `--replace-tab-with-space`
-      -  rule options:
+   -  rule options:
       -  `--replace-tab-with-space-indent-size`
          -  Type: `int`
          -  Default: `4`
