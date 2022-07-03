@@ -5,7 +5,7 @@ from typing import Any, Optional
 
 from ..core import File, Rule
 from ..utils.colorful import CYAN, Color
-from ..utils.newline import NewlineName, Newline
+from ..utils.newline import Newline, NewlineName
 
 
 class UnifyNewlineRule(Rule):

@@ -3,11 +3,12 @@ import glob
 
 from .core import File, Rule
 from .rules import (
+    EnsureFinalNewlineRule,
     InsertWhitespaceBetweenCnAndEnCharRule,
+    ReplaceTabWithSpaceRule,
+    TrimTrailingBlankLinesRule,
     TrimTrailingWhitespace,
     UnifyNewlineRule,
-    EnsureFinalNewlineRule,
-    TrimTrailingBlankLinesRule,
 )
 
 
@@ -18,6 +19,7 @@ def main() -> None:
         UnifyNewlineRule,
         EnsureFinalNewlineRule,
         TrimTrailingBlankLinesRule,
+        ReplaceTabWithSpaceRule,
     ]
 
     parser = argparse.ArgumentParser()

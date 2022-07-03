@@ -24,6 +24,12 @@ pip install docufix
    -  rule name: `--ensure-final-newline`
 -  删除文件末多余的空行
    -  rule name: `--trim-trailing-blank-lines`
+-  使用空格代替 TAB
+   -  rule name: `--replace-tab-with-space`
+      -  rule options:
+      -  `--replace-tab-with-space-indent-size`
+         -  Type: `int`
+         -  Default: `4`
 
 ## Usage
 
@@ -44,9 +50,11 @@ docufix '**/*.md' \
    --insert-whitespace-between-cn-and-en-char \
    --trim-trailing-whitespace \
    --unify-newline \
-   --unify-newline-type LF \
+   --unify-newline-type=LF \
    --ensure-final-newline \
    --trim-trailing-blank-lines \
+   --replace-tab-with-space \
+   --replace-tab-with-space-indent-size=4 \
    --fix
 ```
 

@@ -1,10 +1,11 @@
+from .ensure_final_newline import EnsureFinalNewlineRule
 from .insert_whitespace_between_cn_and_en_char import (
     InsertWhitespaceBetweenCnAndEnCharRule,
 )
+from .replace_tab_with_space import ReplaceTabWithSpaceRule
+from .trim_trailing_blank_lines import TrimTrailingBlankLinesRule
 from .trim_trailing_whitespace import TrimTrailingWhitespace
 from .unify_newline import UnifyNewlineRule
-from .ensure_final_newline import EnsureFinalNewlineRule
-from .trim_trailing_blank_lines import TrimTrailingBlankLinesRule
 
 __all__ = [
     "InsertWhitespaceBetweenCnAndEnCharRule",
@@ -12,4 +13,5 @@ __all__ = [
     "UnifyNewlineRule",
     "EnsureFinalNewlineRule",
     "TrimTrailingBlankLinesRule",
+    "ReplaceTabWithSpaceRule",
 ]
