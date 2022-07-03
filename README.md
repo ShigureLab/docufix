@@ -14,6 +14,12 @@ pip install docufix
    -  rule name: `--insert-whitespace-between-cn-and-en-char`
 -  删除行末空格
    -  rule name: `--trim-trailing-whitespace`
+-  统一换行符
+   -  rule name: `--unify-newline`
+   -  rule options:
+      -  `--unify-newline-type`
+         -  Type: `Literal["lf", "crlf"]`
+         -  Default: `lf`
 
 ## Usage
 
@@ -33,6 +39,8 @@ Example:
 docufix '**/*.md' \
    --insert-whitespace-between-cn-and-en-char \
    --trim-trailing-whitespace \
+   --unify-newline \
+   --unify-newline-type lf \
    --fix
 ```
 

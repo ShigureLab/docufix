@@ -2,13 +2,18 @@ import argparse
 import glob
 
 from .core import File, Rule
-from .rules import InsertWhitespaceBetweenCnAndEnCharRule, TrimTrailingWhitespace
+from .rules import (
+    InsertWhitespaceBetweenCnAndEnCharRule,
+    TrimTrailingWhitespace,
+    UnifyNewlineRule,
+)
 
 
 def main() -> None:
     rule_clss = [
         InsertWhitespaceBetweenCnAndEnCharRule,
         TrimTrailingWhitespace,
+        UnifyNewlineRule,
     ]
 
     parser = argparse.ArgumentParser()
@@ -44,6 +49,7 @@ def main() -> None:
 
     print()
 
+    # Show the statistics.
     print(f"Total checked files: {total}")
     for rule in rules:
         print(f"    {rule.colored_rule_name}:\t{rule.count}")

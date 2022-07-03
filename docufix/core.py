@@ -72,7 +72,7 @@ class Rule:
         """
         return
 
-    def lint_file(self, file: "File") -> bool:
+    def lint_file(self, file: "File") -> Optional[str]:
         """
         This function is used to lint the file. The lint message seems like:
 
@@ -86,7 +86,7 @@ class Rule:
         Returns:
             bool: If this file needn't to be linted, return False.
         """
-        return False
+        return None
 
     @property
     def colored_rule_name(self) -> str:
@@ -128,13 +128,13 @@ class Line:
         text = origin_text.rstrip(newline)
         return text, newline
 
-    def force_lf(self):
+    def force_lf(self) -> None:
         if self.with_newline:
-            return self.newline == "\n"
+            self.newline = "\n"
 
-    def force_crlf(self):
+    def force_crlf(self) -> None:
         if self.with_newline:
-            return self.newline == "\r\n"
+            self.newline = "\r\n"
 
     def apply_rules(self, rules: list[Rule]):
         for rule in rules:
