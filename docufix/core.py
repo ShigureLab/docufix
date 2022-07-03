@@ -156,7 +156,7 @@ class Line:
 
     @property
     def newline_only(self) -> bool:
-        return self.text != ""
+        return self.text == ""
 
     def __str__(self) -> str:
         if self.newline is not None:

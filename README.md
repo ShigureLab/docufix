@@ -22,6 +22,8 @@ pip install docufix
          -  Default: `LF`
 -  确保文件末尾有换行符
    -  rule name: `--ensure-final-newline`
+-  删除文件末多余的空行
+   -  rule name: `--trim-trailing-blank-lines`
 
 ## Usage
 
@@ -44,6 +46,7 @@ docufix '**/*.md' \
    --unify-newline \
    --unify-newline-type LF \
    --ensure-final-newline \
+   --trim-trailing-blank-lines \
    --fix
 ```
 

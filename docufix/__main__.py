@@ -7,6 +7,7 @@ from .rules import (
     TrimTrailingWhitespace,
     UnifyNewlineRule,
     EnsureFinalNewlineRule,
+    TrimTrailingBlankLinesRule,
 )
 
 
@@ -16,6 +17,7 @@ def main() -> None:
         TrimTrailingWhitespace,
         UnifyNewlineRule,
         EnsureFinalNewlineRule,
+        TrimTrailingBlankLinesRule,
     ]
 
     parser = argparse.ArgumentParser()
@@ -45,11 +47,6 @@ def main() -> None:
 
         file = File(path)
         file.apply_rules(rules)
-
-        # For debug
-        # print(file.filepath)
-        # for line in file.lines:
-        #     print(f"<{repr(line.text)}><{repr(line.newline)}>")
 
         if args.fix:
             file.write_back()
