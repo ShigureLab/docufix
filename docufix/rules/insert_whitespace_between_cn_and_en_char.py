@@ -19,7 +19,7 @@ class InsertWhitespaceBetweenCnAndEnCharRule(Rule):
     The rule to insert a whitespece between Chinese and English characters.
     """
 
-    rule_name: str = "InsertWhitespaceBetweenCnAndEnCharRule"
+    rule_name: str = "InsertWhitespaceBetweenCnAndEnChar"
     rule_type: set[str] = {"line"}
     hint_color: Color = BLUE
 
