@@ -44,6 +44,9 @@ def main() -> None:
         file = File(path)
         file.apply_rules(rules)
 
+        for line in file.lines:
+            print(f"<{repr(line.text)}><{repr(line.newline)}>")
+
         if args.fix:
             file.write_back()
 

@@ -1,10 +1,11 @@
 from __future__ import annotations
 
 import argparse
-from typing import Any, Literal, Optional
+from typing import Any, Optional
 
 from ..core import File, Rule
 from ..utils.colorful import CYAN, Color
+from ..utils.newline import NewlineName, Newline
 
 
 class UnifyNewlineRule(Rule):
@@ -17,12 +18,13 @@ class UnifyNewlineRule(Rule):
     hint_color: Color = CYAN
 
     options = {}
-    newline: Literal["lf", "crlf"] = "lf"
+    newline: Newline = Newline.LF
 
     def __init__(self, cli: argparse.Namespace) -> None:
         super().__init__(cli)
         self.enable = self.options["enable"]
-        self.newline = self.options["newline"]
+        newline_name: NewlineName = self.options["newline"]
+        self.newline = Newline.from_name(newline_name)
 
     @classmethod
     def extend_cli(cls, parser: argparse.ArgumentParser) -> None:
@@ -32,8 +34,9 @@ class UnifyNewlineRule(Rule):
         )
         parser.add_argument(
             "--unify-newline-type",
-            choices=["lf", "crlf"],
-            default="lf",
+            choices=["CR", "LF", "CRLF"],
+            type=str.upper,
+            default="LF",
         )
 
     def extract_options_from_cli(self, cli: argparse.Namespace) -> dict[str, Any]:
@@ -44,15 +47,12 @@ class UnifyNewlineRule(Rule):
 
     def format_file(self, file: File) -> None:
         for line in file.lines:
-            if self.newline == "lf":
-                line.force_lf()
-            else:
-                line.force_crlf()
+            line.change_newline(self.newline)
 
     def lint_file(self, file: File) -> Optional[str]:
         for line in file.lines:
-            if line.newline == "\r\n" and self.newline == "lf":
+            if self.newline == Newline.LF and line.newline == Newline.CRLF:
                 return "Expected LF newline, but found CRLF"
-            elif line.newline == "\n" and self.newline == "crlf":
+            elif self.newline == Newline.CRLF and line.newline == Newline.LF:
                 return "Expected CRLF newline, but found LF"
         return None

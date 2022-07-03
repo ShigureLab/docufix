@@ -2,6 +2,7 @@ import argparse
 from typing import Any, Optional
 
 from .utils.colorful import CYAN, RST, Color
+from .utils.newline import Newline
 
 
 class Rule:
@@ -106,8 +107,7 @@ class Rule:
 
 class Line:
     text: str
-    newline: str
-    with_newline: bool
+    newline: Optional[Newline]
 
     def __init__(self, lineno: int, text: str, file: "File"):
         self.lineno = lineno
@@ -115,26 +115,26 @@ class Line:
         self.file = file
 
         self.text, self.newline = self._process_origin_text(self.origin_text)
-        self.with_newline = self.newline != ""
 
-    def _process_origin_text(self, origin_text: str) -> tuple[str, str]:
-        if origin_text.endswith("\r\n"):
-            newline = "\r\n"
-        elif origin_text.endswith("\n"):
-            newline = "\n"
+    def _process_origin_text(self, origin_text: str) -> tuple[str, Optional[Newline]]:
+
+        if origin_text.endswith(Newline.CR.value):
+            newline = Newline.CR
+        elif origin_text.endswith(Newline.LF.value):
+            newline = Newline.LF
+        elif origin_text.endswith(Newline.CRLF.value):
+            newline = Newline.CRLF
         else:
-            newline = ""
+            newline = None
 
-        text = origin_text.rstrip(newline)
+        text = origin_text
+        if newline is not None:
+            text = origin_text.rstrip(newline.value)
         return text, newline
 
-    def force_lf(self) -> None:
-        if self.with_newline:
-            self.newline = "\n"
-
-    def force_crlf(self) -> None:
-        if self.with_newline:
-            self.newline = "\r\n"
+    def change_newline(self, newline: Newline) -> None:
+        if self.newline is not None:
+            self.newline = newline
 
     def apply_rules(self, rules: list[Rule]):
         for rule in rules:
@@ -145,8 +145,8 @@ class Line:
                 rule.format_line(self)
 
     def __str__(self) -> str:
-        if self.with_newline:
-            return self.text + self.newline
+        if self.newline is not None:
+            return self.text + self.newline.value
         else:
             return self.text
 
