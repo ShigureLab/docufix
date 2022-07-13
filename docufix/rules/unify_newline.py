@@ -41,7 +41,7 @@ class UnifyNewlineRule(Rule):
 
     def extract_options_from_cli(self, cli: argparse.Namespace) -> dict[str, Any]:
         return {
-            "enable": cli.unify_newline,
+            "enable": cli.unify_newline or cli.all_rules,
             "newline": cli.unify_newline_type,
         }
 

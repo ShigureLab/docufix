@@ -40,7 +40,7 @@ class ReplaceTabWithSpaceRule(Rule):
 
     def extract_options_from_cli(self, cli: argparse.Namespace) -> dict[str, Any]:
         return {
-            "enable": cli.replace_tab_with_space,
+            "enable": cli.replace_tab_with_space or cli.all_rules,
             "indent_size": cli.replace_tab_with_space_indent_size,
         }
 

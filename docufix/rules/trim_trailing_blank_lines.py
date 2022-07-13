@@ -31,7 +31,7 @@ class TrimTrailingBlankLinesRule(Rule):
 
     def extract_options_from_cli(self, cli: argparse.Namespace) -> dict[str, Any]:
         return {
-            "enable": cli.trim_trailing_blank_lines,
+            "enable": cli.trim_trailing_blank_lines or cli.all_rules,
         }
 
     def format_file(self, file: File) -> None:

@@ -35,6 +35,7 @@ def main() -> None:
     parser.add_argument("globs", help="Path glob to check", nargs="+")
     parser.add_argument("--fix", help="Auto fix the wrongs", action="store_true")
     parser.add_argument("--ignore-globs", help="Path glob to ignore, comma separated", type=str, default="")
+    parser.add_argument("--all-rules", action="store_true", help="Apply all existing rules")
     for rule_cls in rule_clss:
         rule_cls.extend_cli(parser)
     args = parser.parse_args()

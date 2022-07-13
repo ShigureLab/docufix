@@ -38,7 +38,7 @@ class InsertWhitespaceBetweenCnAndEnCharRule(Rule):
 
     def extract_options_from_cli(self, cli: argparse.Namespace) -> dict[str, Any]:
         return {
-            "enable": cli.insert_whitespace_between_cn_and_en_char,
+            "enable": cli.insert_whitespace_between_cn_and_en_char or cli.all_rules,
         }
 
     def format_line(self, line: Line):

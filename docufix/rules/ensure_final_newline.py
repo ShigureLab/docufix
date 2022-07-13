@@ -32,7 +32,7 @@ class EnsureFinalNewlineRule(Rule):
 
     def extract_options_from_cli(self, cli: argparse.Namespace) -> dict[str, Any]:
         return {
-            "enable": cli.ensure_final_newline,
+            "enable": cli.ensure_final_newline or cli.all_rules,
         }
 
     def _infer_newline(self, file: File) -> Newline:

@@ -8,7 +8,40 @@ A simple doc style fixer.
 pip install docufix
 ```
 
-## Rules
+## Usage
+
+Basic usage:
+
+```bash
+docufix path-glob1 path-glob2 path-glob3
+```
+
+An complex usage:
+
+```bash
+docufix path-glob1 path-glob2 path-glob3 \
+   --ignore-globs='ignore-glob1,ignore-glob2' \
+   --rule1-name \
+   --rule1-option1 \
+   --rule1-option2 \
+   --rule2-name \
+   --rule2-option1 \
+   --fix
+```
+
+### Base options
+
+-  `--fix`，自动修复文件
+   -  Type: `bool`
+   -  Default: `False`
+-  `--ignore-globs`，忽略的文件 glob，多个用 `,` 分隔
+   -  Type: str
+   -  Default: `""`
+-  `--all-rules`，应用所有已有的规则
+   -  Type: `bool`
+   -  Default: `False`
+
+### Rules
 
 -  中英文间插入空格（对 AST 有改动）
    -  rule name: `--insert-whitespace-between-cn-and-en-char`
@@ -31,20 +64,7 @@ pip install docufix
          -  Type: `int`
          -  Default: `4`
 
-## Usage
-
-```bash
-docufix path-glob1 path-glob2 path-glob3 \
-   --ignore-globs='ignore-glob1,ignore-glob2' \
-   --rule1-name \
-   --rule1-option1 \
-   --rule1-option2 \
-   --rule2-name \
-   --rule2-option1 \
-   --fix
-```
-
-Example:
+### Examples
 
 ```bash
 docufix '**/*.md' '**/*.rst' \
@@ -62,7 +82,9 @@ docufix '**/*.md' '**/*.rst' \
 
 ## Motivation
 
-给 Paddle 的 ReStructuredText 和 Markdown 进行初步的格式化。（下一步是用 Prettier 这样的格式化工具来格式化，因此只是临时解决方案）
+给 Paddle 的 reStructuredText 和 Markdown 进行初步的格式化。（下一步是用 Prettier 这样的格式化工具来格式化，因此只是临时解决方案）
+
+<!--
 
 ## Paddle 文档修缮工程
 
@@ -70,3 +92,5 @@ docufix '**/*.md' '**/*.rst' \
 -  Stage 2: 编写通用工具来格式化文档
 -  Stage 3: 完善文档规范，推广文档规范及新的编辑器配置，根据文档规范编写专用工具（linter and autofixer）
 -  Stage 4: 设计新的文档维护模式（本阶段也会同时尝试该部分）
+
+-->

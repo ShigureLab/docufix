@@ -34,7 +34,7 @@ class TrimTrailingWhitespace(Rule):
 
     def extract_options_from_cli(self, cli: argparse.Namespace) -> dict[str, Any]:
         return {
-            "enable": cli.trim_trailing_whitespace,
+            "enable": cli.trim_trailing_whitespace or cli.all_rules,
         }
 
     def format_line(self, line: Line) -> None:
