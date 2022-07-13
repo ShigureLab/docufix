@@ -1,6 +1,6 @@
-import argparse
 import glob
 
+from .cli import cli
 from .core import File, Rule
 from .rules import (
     EnsureFinalNewlineRule,
@@ -22,7 +22,7 @@ def resolve_globs(globs: list[str], ignore_globs: list[str]) -> list[str]:
 
 
 def main() -> None:
-    rule_clss = [
+    rule_clss: list[type[Rule]] = [
         InsertWhitespaceBetweenCnAndEnCharRule,
         TrimTrailingWhitespace,
         UnifyNewlineRule,
@@ -31,14 +31,7 @@ def main() -> None:
         ReplaceTabWithSpaceRule,
     ]
 
-    parser = argparse.ArgumentParser()
-    parser.add_argument("globs", help="Path glob to check", nargs="+")
-    parser.add_argument("--fix", help="Auto fix the wrongs", action="store_true")
-    parser.add_argument("--ignore-globs", help="Path glob to ignore, comma separated", type=str, default="")
-    parser.add_argument("--all-rules", action="store_true", help="Apply all existing rules")
-    for rule_cls in rule_clss:
-        rule_cls.extend_cli(parser)
-    args = parser.parse_args()
+    args = cli(rule_clss)
 
     rules: list[Rule] = [rule_cls(args) for rule_cls in rule_clss]
     rules = [rule for rule in rules if rule.enable]

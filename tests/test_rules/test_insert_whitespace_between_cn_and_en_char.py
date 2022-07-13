@@ -1,6 +1,6 @@
-import argparse
 import re
 
+from docufix.cli import setup_cli_for_test
 from docufix.rules.insert_whitespace_between_cn_and_en_char import (
     REGEX_CN_CHAR_STR,
     REGEX_CN_WITH_EN,
@@ -12,7 +12,7 @@ from docufix.rules.insert_whitespace_between_cn_and_en_char import (
 
 
 def _create_rule(argv: list[str]) -> InsertWhitespaceBetweenCnAndEnCharRule:
-    parser = argparse.ArgumentParser()
+    parser = setup_cli_for_test()
     InsertWhitespaceBetweenCnAndEnCharRule.extend_cli(parser)
 
     args = parser.parse_args(argv)
