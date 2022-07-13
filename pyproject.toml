@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "docufix"
-version = "0.2.2"
+version = "0.3.0"
 description = ""
 authors = ["Nyakku Shigure <sigure.qaq@gmail.com>"]
 

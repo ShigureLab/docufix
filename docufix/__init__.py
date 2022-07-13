@@ -1,5 +1,5 @@
 # Meta information for the project.
-__version__ = "0.2.2"
+__version__ = "0.3.0"
 __author__ = "Nyakku Shigure"
 __year__ = "2022"
 __project_info__ = {
