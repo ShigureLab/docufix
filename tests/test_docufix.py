@@ -1,4 +1,5 @@
 import sys
+
 from docufix import __version__
 
 if sys.version_info >= (3, 11):  # pragma: >=3.11 cover
