@@ -44,16 +44,16 @@ class Rule:
         """
         return
 
-    def lint_line(self, line: "Line") -> Optional[tuple[str, int]]:
+    def check_line(self, line: "Line") -> Optional[tuple[str, int]]:
         """
-        This function is used to lint the line. The lint message seems like:
+        This function is used to check the line. The check message seems like:
 
         .. text-block:: text
 
             {rule_name}\t{filepath}:{lineno}:{colno}\t\t{highlight_string}
 
         Args:
-            line (str): The line to lint.
+            line (str): The line to check.
 
         Returns:
             Optional[tuple[str, int]]: The highlight string and the column number.
@@ -73,19 +73,19 @@ class Rule:
         """
         return
 
-    def lint_file(self, file: "File") -> Optional[str]:
+    def check_file(self, file: "File") -> Optional[str]:
         """
-        This function is used to lint the file. The lint message seems like:
+        This function is used to check the file. The check message seems like:
 
         .. text-block:: text
 
             {rule_name}\t{filepath}
 
         Args:
-            file_str (str): The file to lint.
+            file_str (str): The file to check.
 
         Returns:
-            bool: If this file needn't to be linted, return False.
+            bool: If this file needn't to be checked, return False.
         """
         return None
 
@@ -145,8 +145,8 @@ class Line:
     def apply_rules(self, rules: list[Rule]):
         for rule in rules:
             if rule.is_line_rule:
-                if (lint_result := rule.lint_line(self)) is not None:
-                    highlight_string, colno = lint_result
+                if (check_result := rule.check_line(self)) is not None:
+                    highlight_string, colno = check_result
                     print(f"{rule.colored_rule_name}\t{self.file.filepath}:{self.lineno}:{colno}\t\t{highlight_string}")
                 rule.format_line(self)
 
@@ -187,7 +187,7 @@ class File:
 
         for rule in rules:
             if rule.is_file_rule:
-                if rule.lint_file(self):
+                if rule.check_file(self):
                     print(f"{rule.colored_rule_name}\t{self.filepath}")
                 rule.format_file(self)
 

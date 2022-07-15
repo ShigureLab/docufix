@@ -40,7 +40,7 @@ class TrimTrailingWhitespace(Rule):
     def format_line(self, line: Line) -> None:
         line.text = format(line.text)
 
-    def lint_line(self, line: Line) -> Optional[tuple[str, int]]:
+    def check_line(self, line: Line) -> Optional[tuple[str, int]]:
         text = line.text
         if mth := REGEX_TRILING_WHITESPACE.search(text):
             self.count += 1

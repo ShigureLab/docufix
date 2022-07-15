@@ -47,7 +47,7 @@ class ReplaceTabWithSpaceRule(Rule):
     def format_line(self, line: Line) -> None:
         line.text = format(line.text, self.indent_size)
 
-    def lint_line(self, line: Line) -> Optional[tuple[str, int]]:
+    def check_line(self, line: Line) -> Optional[tuple[str, int]]:
         text = line.text
 
         if TAB not in text:

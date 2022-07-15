@@ -49,7 +49,7 @@ class UnifyNewlineRule(Rule):
         for line in file.lines:
             line.change_newline(self.newline)
 
-    def lint_file(self, file: File) -> Optional[str]:
+    def check_file(self, file: File) -> Optional[str]:
         for line in file.lines:
             if self.newline == Newline.LF and line.newline == Newline.CRLF:
                 self.count += 1

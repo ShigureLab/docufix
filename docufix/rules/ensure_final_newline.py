@@ -47,7 +47,7 @@ class EnsureFinalNewlineRule(Rule):
         if file.lines and file.lines[-1].newline is None:
             file.lines[-1].newline = newline
 
-    def lint_file(self, file: File) -> Optional[str]:
+    def check_file(self, file: File) -> Optional[str]:
         if file.lines and file.lines[-1].newline is None:
             self.count += 1
             return "Missing final newline"
