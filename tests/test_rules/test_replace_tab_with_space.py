@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from docufix.rules.replace_tab_with_space import format
 
 

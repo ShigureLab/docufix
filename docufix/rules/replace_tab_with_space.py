@@ -1,8 +1,9 @@
 from __future__ import annotations
 
 import argparse
-from typing import Any, Final, Optional
+from typing import Any, Optional
 
+from .._compat import Final
 from ..core import Line, Rule
 from ..utils.colorful import BACK_RED, RED, RST, Color
 

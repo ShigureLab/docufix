@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from .ensure_final_newline import EnsureFinalNewlineRule
 from .insert_whitespace_between_cn_and_en_char import (
     InsertWhitespaceBetweenCnAndEnCharRule,

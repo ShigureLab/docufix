@@ -1,8 +1,8 @@
 from __future__ import annotations
 
-from typing import Final, TypeAlias
+from .._compat import Final
 
-Color: TypeAlias = Final[str]
+Color = Final[str]
 
 CSI: Color = "\x1b["
 
