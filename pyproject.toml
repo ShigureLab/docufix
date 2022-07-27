@@ -8,7 +8,7 @@ authors = ["Nyakku Shigure <sigure.qaq@gmail.com>"]
 python = "^3.9"
 typing-extensions = { version = "^4.3.0", python = "<3.11" }
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 pytest = "^7.0"
 black = "^22.1"
 pytest-parallel = "^0.1.1"
@@ -30,5 +30,5 @@ add_imports = ["from __future__ import annotations"]
 skip = ["setup.py", ".venv", "docs"]
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
+requires = ["poetry-core>=1.1.0b3"]
 build-backend = "poetry.core.masonry.api"
