@@ -54,6 +54,7 @@ class ReplaceTabWithSpaceRule(Rule):
         if TAB not in text:
             return None
 
+        self.count += 1
         return highlight(text, self.indent_size, self.hint_max_len)
 
 
