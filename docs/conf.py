@@ -6,6 +6,8 @@
 
 # isort: skip_file
 
+from __future__ import annotations
+
 import os
 import sys
 
@@ -17,6 +19,7 @@ import docufix  # type: ignore
 extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.napoleon",
+    "myst_parser",
 ]
 
 from config.basic import (
@@ -43,4 +46,8 @@ from config.napoleon import (
 from config.i18n import (
     gettext_compact as gettext_compact,
     locale_dirs as locale_dirs,
+)
+
+from config.myst import (
+    source_suffix as source_suffix,
 )
