@@ -31,5 +31,5 @@ add_imports = ["from __future__ import annotations"]
 skip = ["setup.py", ".venv", "docs"]
 
 [build-system]
-requires = ["poetry-core>=1.1.0b3"]
+requires = ["poetry-core>=1.1.0"]
 build-backend = "poetry.core.masonry.api"
