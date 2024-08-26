@@ -13,7 +13,7 @@ pytest = "^7.0"
 black = "^22.1"
 pytest-parallel = "^0.1.1"
 isort = "^5.10.1"
-Sphinx = "^5.0.2"
+Sphinx = "^8.0.0"
 sphinx-rtd-theme = "^1.0.0"
 sphinx-intl = "^2.0.1"
 tomli = { version = "^2.0.1", python = "<3.11" }
