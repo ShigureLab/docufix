@@ -1,7 +1,7 @@
 VERSION := `poetry run python -c "import sys; from docufix import __version__ as version; sys.stdout.write(version)"`
 
 test:
-  poetry run pytest --workers auto
+  poetry run pytest --reruns 3 --reruns-delay 1
   just clean
 
 fmt:
@@ -32,19 +32,3 @@ clean-builds:
   rm -rf build/
   rm -rf dist/
   rm -rf *.egg-info/
-
-docs-build:
-  poetry run sphinx-apidoc -f -o docs/api/en docufix
-  poetry run sphinx-build -D language='cn' docs/ docs/dist
-
-docs-preview:
-  pnpm dlx serve docs/dist
-
-docs-clean:
-  rm -rf docs/dist/
-
-docs-init-locales:
-  poetry run sphinx-build -b gettext docs/ docs/dist/locale
-
-docs-update-locales:
-  poetry run sphinx-intl update -p docs/dist/locale -d docs/locales -l cn
