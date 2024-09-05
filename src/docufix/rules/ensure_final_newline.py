@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import argparse
-from typing import Any, Optional
+from typing import Any
 
 from ..core import File, Rule
 from ..utils.colorful import YELLOW, Color
@@ -47,7 +47,7 @@ class EnsureFinalNewlineRule(Rule):
         if file.lines and file.lines[-1].newline is None:
             file.lines[-1].newline = newline
 
-    def check_file(self, file: File) -> Optional[str]:
+    def check_file(self, file: File) -> str | None:
         if file.lines and file.lines[-1].newline is None:
             self.count += 1
             return "Missing final newline"

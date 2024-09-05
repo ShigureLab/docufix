@@ -1,9 +1,8 @@
 from __future__ import annotations
 
 import argparse
-from typing import Any, Optional
+from typing import Any, Final
 
-from .._compat import Final
 from ..core import Line, Rule
 from ..utils.colorful import BACK_RED, RED, RST, Color
 
@@ -48,7 +47,7 @@ class ReplaceTabWithSpaceRule(Rule):
     def format_line(self, line: Line) -> None:
         line.text = format(line.text, self.indent_size)
 
-    def check_line(self, line: Line) -> Optional[tuple[str, int]]:
+    def check_line(self, line: Line) -> tuple[str, int] | None:
         text = line.text
 
         if TAB not in text:

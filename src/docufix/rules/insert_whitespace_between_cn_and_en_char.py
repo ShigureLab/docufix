@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import argparse
 import re
-from typing import Any, Optional
+from typing import Any
 
 from ..core import Line, Rule
 from ..utils.colorful import BLUE, RST, Color
@@ -44,7 +44,7 @@ class InsertWhitespaceBetweenCnAndEnCharRule(Rule):
     def format_line(self, line: Line):
         line.text = format(line.text)
 
-    def check_line(self, line: Line) -> Optional[tuple[str, int]]:
+    def check_line(self, line: Line) -> tuple[str, int] | None:
         text = line.text
         min_start = 999999
         max_end = -1

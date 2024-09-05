@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import argparse
-from typing import Any, Optional
+from typing import Any
 
 from .utils.colorful import CYAN, RST, Color
 from .utils.newline import Newline
@@ -34,7 +34,7 @@ class Rule:
     def extend_cli(cls, parser: argparse.ArgumentParser) -> None:
         return
 
-    def format_line(self, line: "Line") -> None:
+    def format_line(self, line: Line) -> None:
         """
         This function is used to format the line.
 
@@ -46,7 +46,7 @@ class Rule:
         """
         return
 
-    def check_line(self, line: "Line") -> Optional[tuple[str, int]]:
+    def check_line(self, line: Line) -> tuple[str, int] | None:
         """
         This function is used to check the line. The check message seems like:
 
@@ -63,7 +63,7 @@ class Rule:
         """
         return None
 
-    def format_file(self, file: "File") -> None:
+    def format_file(self, file: File) -> None:
         """
         This function is used to format the file.
 
@@ -75,7 +75,7 @@ class Rule:
         """
         return
 
-    def check_file(self, file: "File") -> Optional[str]:
+    def check_file(self, file: File) -> str | None:
         """
         This function is used to check the file. The check message seems like:
 
@@ -109,9 +109,9 @@ class Rule:
 
 class Line:
     text: str
-    newline: Optional[Newline]
+    newline: Newline | None
 
-    def __init__(self, lineno: int, text: str, file: "File"):
+    def __init__(self, lineno: int, text: str, file: File):
         self.lineno = lineno
         self.origin_text = text
         self.file = file
@@ -119,8 +119,7 @@ class Line:
         self.text, self.newline = self._process_origin_text(self.origin_text)
         self._check_line()
 
-    def _process_origin_text(self, origin_text: str) -> tuple[str, Optional[Newline]]:
-
+    def _process_origin_text(self, origin_text: str) -> tuple[str, Newline | None]:
         if origin_text.endswith(Newline.CRLF.value):
             newline = Newline.CRLF
         elif origin_text.endswith(Newline.CR.value):
@@ -168,16 +167,15 @@ class Line:
 
 
 class File:
-
     filepath: str
-    lines: list["Line"]
+    lines: list[Line]
 
     def __init__(self, filepath: str):
         self.filepath = filepath
         self.lines = self.read_lines()
 
-    def read_lines(self) -> list["Line"]:
-        lines: list["Line"] = []
+    def read_lines(self) -> list[Line]:
+        lines: list[Line] = []
         with open(self.filepath, "r", encoding="utf-8", newline="\n") as f:
             for lineno, line in enumerate(f, 1):
                 lines.append(Line(lineno, line, self))

@@ -1,26 +1,37 @@
-VERSION := `poetry run python -c "import sys; from docufix import __version__ as version; sys.stdout.write(version)"`
+VERSION := `uv run python -c "import sys; from docufix import __version__ as version; sys.stdout.write(version)"`
+
+install:
+  uv sync --all-extras --dev
 
 test:
-  poetry run pytest --reruns 3 --reruns-delay 1
+  uv run pytest
   just clean
 
 fmt:
-  poetry run isort .
-  poetry run black .
+  uv run ruff format .
+
+lint:
+  uv run pyright src/docufix tests
+  uv run ruff check .
 
 fmt-docs:
-  poetry run docufix '**/*.md' --fix
-  poetry run docufix '**/*.rst' --fix
+  prettier --write '**/*.md'
 
 build:
-  poetry build
+  uv build
 
-publish:
-  touch docufix/py.typed
-  poetry publish --build
+release:
+  @echo 'Tagging v{{VERSION}}...'
   git tag "v{{VERSION}}"
+  @echo 'Push to GitHub to trigger publish process...'
   git push --tags
-  just clean-builds
+
+# Missing command for uv
+# publish:
+#   poetry publish --build
+#   git tag "v{{VERSION}}"
+#   git push --tags
+#   just clean-builds
 
 clean:
   find . -name "*.pyc" -print0 | xargs -0 rm -f
@@ -32,3 +43,17 @@ clean-builds:
   rm -rf build/
   rm -rf dist/
   rm -rf *.egg-info/
+
+ci-install:
+  just install
+
+ci-fmt-check:
+  uv run ruff format --check --diff .
+  prettier --check '**/*.md'
+
+ci-lint:
+  just lint
+
+ci-test:
+  uv run pytest --reruns 3 --reruns-delay 1
+  just clean

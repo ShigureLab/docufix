@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import argparse
-from typing import Any, Optional
+from typing import Any
 
 from ..core import File, Rule
 from ..utils.colorful import CYAN, Color
@@ -49,7 +49,7 @@ class UnifyNewlineRule(Rule):
         for line in file.lines:
             line.change_newline(self.newline)
 
-    def check_file(self, file: File) -> Optional[str]:
+    def check_file(self, file: File) -> str | None:
         for line in file.lines:
             if self.newline == Newline.LF and line.newline == Newline.CRLF:
                 self.count += 1

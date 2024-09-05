@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import argparse
-from typing import Any, Optional
+from typing import Any
 
 from ..core import File, Rule
 from ..utils.colorful import GREEN, Color
@@ -51,7 +51,7 @@ class TrimTrailingBlankLinesRule(Rule):
 
         file.lines = file.lines[:-repeated_newline_count]
 
-    def check_file(self, file: File) -> Optional[str]:
+    def check_file(self, file: File) -> str | None:
         if file.lines and file.lines[-1].newline_only:
             self.count += 1
             return "The file has a repeated final newline."

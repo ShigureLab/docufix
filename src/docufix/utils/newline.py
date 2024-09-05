@@ -13,7 +13,7 @@ class Newline(Enum):
     CRLF = "\r\n"
 
     @classmethod
-    def from_name(cls, name: NewlineName) -> "Newline":
+    def from_name(cls, name: NewlineName) -> Newline:
         if name == "CR":
             return cls.CR
         elif name == "LF":
