@@ -13,8 +13,8 @@ jobs:
     strategy:
       matrix:
         # Only run linter and formatter on minimum supported Python version
-        python-version: ['3.9']
-        architecture: ['x64']
+        python-version: ["3.9"]
+        architecture: ["x64"]
     name: lint and fmt - Python ${{ matrix.python-version }} on ${{ matrix.architecture }}
     steps:
       - name: Checkout
