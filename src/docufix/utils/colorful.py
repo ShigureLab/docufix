@@ -1,8 +1,6 @@
 from __future__ import annotations
 
-from typing import Final
-
-from typing_extensions import TypeAlias
+from typing import Final, TypeAlias
 
 Color: TypeAlias = Final[str]
 
