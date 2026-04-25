@@ -32,16 +32,11 @@ docufix = "docufix.__main__:main"
 
 [dependency-groups]
 dev = [
-  "pyright>=1.1.406",
+  "ty>=0.0.32",
   "ruff>=0.14.0",
   "pytest>=8.4.2",
   "pytest-rerunfailures>=16.0.1",
 ]
-
-[tool.pyright]
-include = ["src/moelib", "tests"]
-pythonVersion = "3.10"
-typeCheckingMode = "strict"
 
 [tool.ruff]
 line-length = 120
@@ -65,8 +60,6 @@ select = [
 ]
 ignore = [
   "E501",  # line too long, duplicate with ruff fmt
-  "F401",  # imported but unused, duplicate with pyright
-  "F841",  # local variable is assigned to but never used, duplicate with pyright
   "UP015", # it not met the "Explicit is better than implicit" rule
 ]
 
