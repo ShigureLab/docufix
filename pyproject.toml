@@ -34,7 +34,7 @@ docufix = "docufix.__main__:main"
 dev = [
   "ty>=0.0.37",
   "ruff>=0.15.13",
-  "pytest>=8.4.2",
+  "pytest>=9.0.3",
   "pytest-rerunfailures>=16.2",
 ]
 
