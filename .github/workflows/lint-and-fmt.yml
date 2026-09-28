@@ -10,9 +10,6 @@ on:
 jobs:
   lint-and-fmt:
     runs-on: ubuntu-latest
-    env:
-      UV_PYTHON: ${{ matrix.python-version }}
-      UV_LOCKED: "1"
     strategy:
       matrix:
         # Only run linter and formatter on minimum supported Python version

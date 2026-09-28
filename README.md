@@ -4,8 +4,6 @@ A simple doc style fixer.
 
 ## Installation
 
-Requires Python 3.11 or newer.
-
 ```bash
 pip install docufix
 ```

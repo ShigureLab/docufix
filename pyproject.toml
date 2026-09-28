@@ -19,7 +19,7 @@ classifiers = [
   "Programming Language :: Python :: 3.15",
   "Programming Language :: Python :: Implementation :: CPython",
 ]
-dependencies = ["typing-extensions>=4.16.0"]
+dependencies = ["typing-extensions>=4.14.0"]
 
 [project.urls]
 Homepage = "https://github.com/ShigureLab/moelib"
